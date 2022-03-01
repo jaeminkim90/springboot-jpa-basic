@@ -20,10 +20,14 @@ public class JpaMain {
         tx.begin(); // 트랜잭션 시작
 
         try {
-            // 영속
-            Member findMember1 = em.find(Member.class, 101L);
-            Member findMember2 = em.find(Member.class, 101L);
-            System.out.println("result = " + (findMember1 == findMember2)); // 1차 캐시를 이용해 객체의 동일성 보장
+         // 영속
+            Member member1 = new Member(150L, "A");
+            Member member2 = new Member(160L, "B");
+
+            em.persist(member1);
+            em.persist(member2);
+
+            System.out.println("========================");
 
             tx.commit(); // 트랜잭션 저장 -> 영속성 컨텍스트에서 DB에 쿼리가 날라간다
         } catch (Exception e) {
