@@ -23,6 +23,7 @@ public class JpaMain {
             // 영속
             Member findMember1 = em.find(Member.class, 101L);
             Member findMember2 = em.find(Member.class, 101L);
+            System.out.println("result = " + (findMember1 == findMember2)); // 1차 캐시를 이용해 객체의 동일성 보장
 
             tx.commit(); // 트랜잭션 저장 -> 영속성 컨텍스트에서 DB에 쿼리가 날라간다
         } catch (Exception e) {
