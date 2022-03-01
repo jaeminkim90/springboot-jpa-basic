@@ -20,20 +20,23 @@ public class JpaMain {
         tx.begin(); // 트랜잭션 시작
 
         try {
-            //Member findMember = em.find(Member.class, 1L);
 
-            // JPQL을 이용한 쿼리 작성 방법
-            // Member 객체를 대상으로 쿼리를 작성한다
-            List<Member> result = em.createQuery("select m from Member as m", Member.class)
-                    .setFirstResult(1)
-                    .setMaxResults(10) // pagination
-                    .getResultList();
+            // 비영속
+            Member member = new Member();
+            member.setId(101L);
+            member.setName("HelloJPA");
 
-            for (Member member : result) {
-                System.out.println("member.name = " + member.getName());
-            }
+            // 영속
+            System.out.println(" === BEFORE ===");
+            em.persist(member);
+            System.out.println(" === AFTER ===");
 
-            tx.commit(); // 트랜잭션 저장
+            Member findMember = em.find(Member.class, 101L);
+
+            System.out.println("findMember.id = " + findMember.getId());
+            System.out.println("findMember.name = " + findMember.getName());
+
+            tx.commit(); // 트랜잭션 저장 -> 영속성 컨텍스트에서 DB에 쿼리가 날라간다
 
         } catch (Exception e) {
             tx.rollback();
