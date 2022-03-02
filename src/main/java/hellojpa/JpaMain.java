@@ -20,11 +20,14 @@ public class JpaMain {
         tx.begin(); // 트랜잭션 시작
 
         try {
-            Member member = em.find(Member.class, 150L);
-            member.setName("ZZZZZ"); // 변경 감지를 통해 DB 데이터를 변경할 수 있다
+
+            // 영속
+            Member member = new Member(200L, "member200");
+            em.persist(member);
+
+            em.flush(); // 강제 flush
 
             System.out.println("========================");
-
             tx.commit(); // 트랜잭션 저장 -> 영속성 컨텍스트에서 DB에 쿼리가 날라간다
 
         } catch (Exception e) {
