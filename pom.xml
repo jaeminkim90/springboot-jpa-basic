@@ -7,7 +7,7 @@
     <artifactId>ex1-hello-jpa</artifactId>
     <version>1.0.0</version>
     <dependencies>
-        <!-- JPA 하이버네이트 -->\
+        <!-- JPA 하이버네이트 -->
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-entitymanager</artifactId>
