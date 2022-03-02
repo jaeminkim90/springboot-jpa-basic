@@ -22,10 +22,11 @@ public class JpaMain {
         try {
 
             // 영속
-            Member member = new Member(200L, "member200");
-            em.persist(member);
+            Member member = em.find(Member.class, 150L);
+            member.setName("BBB");
 
-            em.flush(); // 강제 flush
+            em.detach(member);
+
 
             System.out.println("========================");
             tx.commit(); // 트랜잭션 저장 -> 영속성 컨텍스트에서 DB에 쿼리가 날라간다
