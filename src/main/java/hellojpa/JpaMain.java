@@ -26,13 +26,12 @@ public class JpaMain {
 
             Member member = new Member();
             member.setUsername("member1");
-            member.setTeamId(team.getId());
+            member.setTeam(team);
+
             em.persist(member);
 
             Member findMember = em.find(Member.class, member.getId());
-
-            Long findTeamId = findMember.getTeamId();
-            Team findTeam = em.find(Team.class, findTeamId);
+            Team findTeam = findMember.getTeam();
 
             tx.commit(); // 트랜잭션 저장 -> 영속성 컨텍스트에서 DB에 쿼리가 날라간다
 
