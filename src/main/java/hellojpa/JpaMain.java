@@ -25,10 +25,12 @@ public class JpaMain {
             Member member = em.find(Member.class, 150L);
             member.setName("BBB");
 
-            em.detach(member);
-
+            em.clear(); // 영속성 컨텍스트 내용 전체를 초기화 한다.
 
             System.out.println("========================");
+
+            Member member2 = em.find(Member.class, 150L);
+
             tx.commit(); // 트랜잭션 저장 -> 영속성 컨텍스트에서 DB에 쿼리가 날라간다
 
         } catch (Exception e) {
