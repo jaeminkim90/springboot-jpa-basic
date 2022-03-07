@@ -32,11 +32,21 @@ public class JpaMain {
             member.setId(100L);
             member.setName("testName");
 
+            // 영속 상태로 넣는다 -> SQL은 persist 단계에서 나가지 않는다
             em.persist(member);
 
-            Member findMember = em.find(Member.class, 100L);
-            findMember.setName("changeName");
+            // 그외 영속성 관련 명령어
+            // detach(member) -> 엔티티를 영속성 컨텍스트에서 분리한다. 준영속 상태가 된다.
+            // remove(member) -> 객체를 DB에서 영구 저장한다
 
+            Member findMember1 = em.find(Member.class, 100L);
+            Member findMember2 = em.find(Member.class, 100L);
+
+            System.out.println("findMember1 = " + findMember1);
+            System.out.println("findMember2 = " + findMember2);
+            System.out.println("(findMember2==findMember1) = " + (findMember2==findMember1));
+
+            // SQL은 commit 단계에서 처리된다.
             tx.commit();
 
         } catch (Exception e) {
