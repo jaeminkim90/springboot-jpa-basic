@@ -21,21 +21,21 @@ public class JpaMain {
         tx.begin(); // transaction 시작
 
         try {
-            // member 저장하기
-            jpaExecute(em, tx);
+//            // member 저장하기
+//            jpaExecute(em, tx);
+//
+//            // member 조회하기
+//            jpaFind(em);
 
-            // member 조회하기
-            jpaFind(em);
+            //객체를 생성한 상태(비영속)
+            Member member = new Member();
+            member.setId(100L);
+            member.setName("testName");
 
-            // 쿼리를 직접 작성하기
-            // JPA는 테이블을 대상으로 쿼리를 작성하지 않는다. Member 객체를 대상으로 쿼리를 작성한다
-            List<Member> result = em.createQuery("select m from Member as m", Member.class)
-                    .getResultList();
+            em.persist(member);
 
-            for (Member member : result) {
-                System.out.println("member.getName() = " + member.getName());
-                
-            }
+            Member findMember = em.find(Member.class, 100L);
+            findMember.setName("changeName");
 
             tx.commit();
 
