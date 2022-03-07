@@ -14,6 +14,14 @@ public class Member {
     // @Column -> column도 마찬가지로 별도의 이름이 있다면 name 속성을 이용하여 mapping 할 수 있다
     private String name;
 
+    public Member(Long id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
+    public Member() {
+    }
+
     public Long getId() {
         return id;
     }
