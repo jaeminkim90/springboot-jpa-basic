@@ -19,19 +19,28 @@ public class JpaMain {
         EntityTransaction tx = em.getTransaction();
         tx.begin(); // transaction 시작
 
-        // Member 저장하기
+        try {
+            // Member 저장하기
 
-        // 1. 일단 member 인스턴스를 생성한다
-        Member member = new Member();
-        // 2. Id와 Name을 넣는다
-        member.setId(1L);
-        member.setName("Hello");
+            // 1. 일단 member 인스턴스를 생성한다
+            Member member = new Member();
+            // 2. Id와 Name을 넣는다
+            member.setId(2L);
+            member.setName("HelloB");
 
-        // 3. member를 저장한다
-        em.persist(member);
-        tx.commit(); // 트랜잭션 커밋
+            // 3. member를 저장한다
+            em.persist(member);
+            tx.commit(); // 트랜잭션 커밋
 
-        em.close(); // 사용이 끝나면 닫아준다
+        } catch (Exception e) {
+            // 정상적일 때는 commit을 하고, 문제가 생겼을 때는 rollback한다
+            tx.rollback();
+        } finally {
+            // 작업이 모두 종료되면 엔티티 매니저를 close 처리한다
+            // 엔티티 매니저를 닫아주는 것이 중요하다. DB커넥션을 물고 동작한다.
+            em.close(); // 사용이 끝나면 닫아준다
+        }
+        // 전체 작업이 끝나면 factory도 닫아준다
         emf.close(); // 완전히 끝나면 Factory도 닫아준다
     }
 }
