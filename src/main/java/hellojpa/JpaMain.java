@@ -21,13 +21,18 @@ public class JpaMain {
 
         try {
             // member 저장하기
-           jpaExecute(em, tx);
+            jpaExecute(em, tx);
 
             // member 조회하기
-            Member findMember = em.find(Member.class, 1L);// member를 찾아온다
+            Member findMember = jpaFind(em);
 
-            System.out.println("findMember.id = " + findMember.getId());
-            System.out.println("findMember.name = " + findMember.getName());
+            findMember.setName("아무개");
+            jpaFind(em);
+
+            // member 삭제하기
+            em.remove(findMember);
+
+
 
         } catch (Exception e) {
             // 정상적일 때는 commit을 하고, 문제가 생겼을 때는 rollback한다
@@ -39,6 +44,15 @@ public class JpaMain {
         }
         // 전체 작업이 끝나면 factory도 닫아준다
         emf.close(); // 완전히 끝나면 Factory도 닫아준다
+    }
+
+    private static Member jpaFind(EntityManager em) {
+        // member 조회하기
+        Member findMember = em.find(Member.class, 1L);// member를 찾아온다
+
+        System.out.println("findMember.id = " + findMember.getId());
+        System.out.println("findMember.name = " + findMember.getName());
+        return findMember;
     }
 
     // Member 저장하기
