@@ -4,6 +4,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
+import java.util.List;
 
 public class JpaMain {
 
@@ -24,15 +25,19 @@ public class JpaMain {
             jpaExecute(em, tx);
 
             // member 조회하기
-            Member findMember = jpaFind(em);
-
-            findMember.setName("아무개");
             jpaFind(em);
 
-            // member 삭제하기
-            em.remove(findMember);
+            // 쿼리를 직접 작성하기
+            // JPA는 테이블을 대상으로 쿼리를 작성하지 않는다. Member 객체를 대상으로 쿼리를 작성한다
+            List<Member> result = em.createQuery("select m from Member as m", Member.class)
+                    .getResultList();
 
+            for (Member member : result) {
+                System.out.println("member.getName() = " + member.getName());
+                
+            }
 
+            tx.commit();
 
         } catch (Exception e) {
             // 정상적일 때는 commit을 하고, 문제가 생겼을 때는 rollback한다
