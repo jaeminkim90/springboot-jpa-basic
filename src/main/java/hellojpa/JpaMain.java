@@ -20,17 +20,14 @@ public class JpaMain {
         tx.begin(); // transaction 시작
 
         try {
-            // Member 저장하기
+            // member 저장하기
+           jpaExecute(em, tx);
 
-            // 1. 일단 member 인스턴스를 생성한다
-            Member member = new Member();
-            // 2. Id와 Name을 넣는다
-            member.setId(2L);
-            member.setName("HelloB");
+            // member 조회하기
+            Member findMember = em.find(Member.class, 1L);// member를 찾아온다
 
-            // 3. member를 저장한다
-            em.persist(member);
-            tx.commit(); // 트랜잭션 커밋
+            System.out.println("findMember.id = " + findMember.getId());
+            System.out.println("findMember.name = " + findMember.getName());
 
         } catch (Exception e) {
             // 정상적일 때는 commit을 하고, 문제가 생겼을 때는 rollback한다
@@ -42,5 +39,19 @@ public class JpaMain {
         }
         // 전체 작업이 끝나면 factory도 닫아준다
         emf.close(); // 완전히 끝나면 Factory도 닫아준다
+    }
+
+    // Member 저장하기
+    private static void jpaExecute(EntityManager em, EntityTransaction tx) {
+
+        // 1. 일단 member 인스턴스를 생성한다
+        Member member = new Member();
+        // 2. Id와 Name을 넣는다
+        member.setId(1L);
+        member.setName("HelloB");
+
+        // 3. member를 저장한다
+        em.persist(member);
+        tx.commit(); // 트랜잭션 커밋
     }
 }
