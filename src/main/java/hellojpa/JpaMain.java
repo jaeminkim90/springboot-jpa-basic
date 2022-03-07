@@ -11,12 +11,13 @@ public class JpaMain {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("hello");
 
         // Factory에서 EntityManager를 꺼낸다
-        EntityManager entityManager = emf.createEntityManager();
+        EntityManager em = emf.createEntityManager();
 
-        entityManager.close();
 
-        emf.close();
+        // JPA 코드를 구현하는 영역
+
+
+        em.close(); // 사용이 끝나면 닫아준다
+        emf.close(); // 완전히 끝나면 Factory도 닫아준다
     }
-
-
 }
