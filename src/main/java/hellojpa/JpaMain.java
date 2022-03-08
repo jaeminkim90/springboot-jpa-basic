@@ -40,8 +40,11 @@ public class JpaMain {
 
             // member의 소속 팀을 알고 싶을 때
             Member findMember = em.find(Member.class, member.getId());
-            Team findTeam = findMember.getTeam();
-            System.out.println("findTeam = " + findTeam);
+
+            List<Member> members = findMember.getTeam().getMembers();
+            for (Member m : members) {
+                System.out.println("m.getUsername() = " + m.getUsername());
+            }
 
 
             // SQL은 commit 단계에서 처리된다.
