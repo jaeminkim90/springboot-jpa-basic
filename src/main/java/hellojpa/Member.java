@@ -8,25 +8,33 @@ import java.util.Date;
 // ex) @Table(name = "MBR")
 public class Member {
 
-    @Id
-    private Long id;
+    @Id // PK 매핑
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private String id;
 
-    @Column(name = "name")
+    @Column(name = "name", nullable = false) // 객체와 DB의 Colum이 다를 경우
     private String username;
 
-    private Integer age;
+    public Member() {
+    }
 
-    @Enumerated(EnumType.STRING)
-    private RoleType roleType;
+    public String getId() {
+        return id;
+    }
 
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date createdDate;
+    public void setId(String id) {
+        this.id = id;
+    }
 
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date lastModifiedDate;
+    public String getUsername() {
+        return username;
+    }
 
-    @Lob
-    private String description;
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+
 }
-//Getter, Setter...
+
 

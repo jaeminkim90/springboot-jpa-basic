@@ -29,11 +29,10 @@ public class JpaMain {
 
 
             // 영속
-            Member member1 = new Member(150L, "A");
-            Member member2 = new Member(160L, "B");
+            Member member = new Member();
+            member.setUsername("C");
 
-            em.persist(member1);
-            em.persist(member2); // 바로 SQL로 나가지 않고, 1차 캐시와 SQL 저장소에 쌓인다.
+            em.persist(member);
             System.out.println("=================================");
 
             // SQL은 commit 단계에서 처리된다.
@@ -55,8 +54,6 @@ public class JpaMain {
         // member 조회하기
         Member findMember = em.find(Member.class, 1L);// member를 찾아온다
 
-        System.out.println("findMember.id = " + findMember.getId());
-        System.out.println("findMember.name = " + findMember.getName());
         return findMember;
     }
 
@@ -66,8 +63,6 @@ public class JpaMain {
         // 1. 일단 member 인스턴스를 생성한다
         Member member = new Member();
         // 2. Id와 Name을 넣는다
-        member.setId(1L);
-        member.setName("HelloB");
 
         // 3. member를 저장한다
         em.persist(member);
