@@ -5,15 +5,14 @@ import java.util.Date;
 
 @Entity // 꼭 넣어야 함 -> JPA가 관리하는 객체로 인식한다. DB 테이블과 맵핑하여 사용한다.
 // @Table -> 일반적으로 Table 이름은 Member를 따라가지면 @Table을 이용하여 별도로 지정할 수도 있다
-@TableGenerator(
+@SequenceGenerator(
         name = "MEMBER_SEQ_GENERATOR",
-        table = "MY_SEQUENCES",
-        pkColumnValue = "MEMBER_SEQ", allocationSize = 1)
-
+        sequenceName = "MEMBER_SEQ",
+        initialValue = 1, allocationSize = 50)
 public class Member {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE,
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,
             generator = "MEMBER_SEQ_GENERATOR")
     private Long id;
 
