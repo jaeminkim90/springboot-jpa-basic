@@ -22,18 +22,26 @@ public class JpaMain {
 
         try {
 
+            // 저장하는 코드
+
+
             Team team = new Team();
             team.setName("TeamA");
             em.persist(team); // persist가 되면 PK가 항상 셋팅 된다
 
             Member member = new Member();
             member.setUsername("member1");
-            member.setTeamId(team.getId()); // 꺼내서 사용한다
+            member.setTeam(team);
             em.persist(member);
+
+            em.flush();
+            em.clear();
+
 
             // member의 소속 팀을 알고 싶을 때
             Member findMember = em.find(Member.class, member.getId());
-            Team findTeam = em.find(Team.class, findMember.getTeamId());
+            Team findTeam = findMember.getTeam();
+            System.out.println("findTeam = " + findTeam);
 
 
             // SQL은 commit 단계에서 처리된다.

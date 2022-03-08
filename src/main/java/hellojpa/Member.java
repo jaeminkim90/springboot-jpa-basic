@@ -15,8 +15,12 @@ public class Member {
     @Column(name = "USERNAME")
     private String username;
 
-    @Column(name = "TEAM_ID")
-    private Long teamId; // DB에 맞춘 모델링 방식으로, teamId를 직접 넣는다
+//    @Column(name = "TEAM_ID")
+//    private Long teamId; // DB에 맞춘 모델링 방식으로, teamId를 직접 넣는다
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "TEAM_ID") // 객체를 참조하기 위해 조인해야 하는 ID를 넣는다
+    private Team team;
 
 
     public Long getId() {
@@ -35,12 +39,12 @@ public class Member {
         this.username = username;
     }
 
-    public Long getTeamId() {
-        return teamId;
+    public Team getTeam() {
+        return team;
     }
 
-    public void setTeamId(Long teamId) {
-        this.teamId = teamId;
+    public void setTeam(Team team) {
+        this.team = team;
     }
 }
 
