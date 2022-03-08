@@ -31,6 +31,10 @@ public class JpaMain {
             member.setTeamId(team.getId()); // 꺼내서 사용한다
             em.persist(member);
 
+            // member의 소속 팀을 알고 싶을 때
+            Member findMember = em.find(Member.class, member.getId());
+            Team findTeam = em.find(Team.class, findMember.getTeamId());
+
 
             // SQL은 commit 단계에서 처리된다.
             tx.commit();
