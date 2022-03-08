@@ -21,30 +21,6 @@ public class JpaMain {
         tx.begin(); // transaction 시작
 
         try {
-//
-            Member member1 = new Member();
-            member1.setUsername("A");
-
-            Member member2 = new Member();
-            member2.setUsername("B");
-
-            Member member3 = new Member();
-            member3.setUsername("C");
-
-            System.out.println("====================");
-
-//            em.persist(member1);
-//            em.persist(member2);
-//            em.persist(member3);
-
-            System.out.println("member1 = " + member1);
-            System.out.println("member2 = " + member2);
-            System.out.println("member3 = " + member3);
-
-            System.out.println("======================");
-
-
-
 
             // SQL은 commit 단계에서 처리된다.
             tx.commit();
