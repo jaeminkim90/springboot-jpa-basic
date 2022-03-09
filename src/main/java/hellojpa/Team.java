@@ -13,13 +13,9 @@ public class Team {
     private Long id;
     private String name;
 
-    @OneToMany(mappedBy = "team") // 반대편 side에 무엇이 있는지 명시한다
-    private List<Member> members = new ArrayList<>(); // ArrayList 초기화하여 nullpointer를 방지한
-
-    public void addMember(Member member) {
-        member.setTeam(this);
-        members.add(member);
-    }
+    @OneToMany
+    @JoinColumn(name = "TEAM_ID")
+    private List<Member> members = new ArrayList<>();
 
     public Long getId() {
         return id;

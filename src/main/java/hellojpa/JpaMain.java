@@ -22,28 +22,18 @@ public class JpaMain {
 
         try {
 
-            Team team = new Team();
-            team.setName("TeamA");
-            em.persist(team); // persist가 되면 PK가 항상 셋팅 된다
-
             Member member = new Member();
             member.setUsername("member1");
-            member.changeTeam(team);
+
             em.persist(member);
 
-            team.addMember(member);
+            Team team = new Team();
+            team.setName("teamA");
 
-            em.flush();
-            em.clear();
+            team.getMembers().add(member);
 
-            Team findTeam = em.find(Team.class, team.getId());
-            List<Member> members = findTeam.getMembers();
 
-            System.out.println("=======================");
-            for (Member m : members) {
-                System.out.println("m.getUsername() = " + m.getUsername());
-            }
-            System.out.println("=======================");
+            em.persist(team);
 
             // SQL은 commit 단계에서 처리된다.
             tx.commit();
@@ -58,24 +48,5 @@ public class JpaMain {
         }
         // 전체 작업이 끝나면 factory도 닫아준다
         emf.close(); // 완전히 끝나면 Factory도 닫아준다
-    }
-
-    private static Member jpaFind(EntityManager em) {
-        // member 조회하기
-        Member findMember = em.find(Member.class, 1L);// member를 찾아온다
-
-        return findMember;
-    }
-
-    // Member 저장하기
-    private static void jpaExecute(EntityManager em, EntityTransaction tx) {
-
-        // 1. 일단 member 인스턴스를 생성한다
-        Member member = new Member();
-        // 2. Id와 Name을 넣는다
-
-        // 3. member를 저장한다
-        em.persist(member);
-        tx.commit(); // 트랜잭션 커밋
     }
 }
