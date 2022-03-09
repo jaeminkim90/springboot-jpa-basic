@@ -45,9 +45,6 @@ public class Member {
 
     public void setTeam(Team team) {
         this.team = team;
-
-        // member에 team을 세팅하는 시점에 team에도 member를 세팅한다
-        team.getMembers().add(this);
     }
 }
 
