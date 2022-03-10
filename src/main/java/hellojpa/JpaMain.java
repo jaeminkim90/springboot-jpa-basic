@@ -22,17 +22,15 @@ public class JpaMain {
 
         try {
 
-            Movie movie = new Movie();
-            movie.setDirector("aaa");
-            movie.setActor("bbb");
-            movie.setName("바람 함께 사라지다");
-            movie.setPrice(10000);
+            Member member = new Member();
+            member.setCreateBy("kim");
 
-            em.persist(movie);
+            em.flush();
+            em.clear();
 
-//            em.flush();
-//            em.clear();
-//
+            Movie findMove = em.find(Movie.class, movie.getId());
+            System.out.println("findMove = " + findMove);
+
             // SQL은 commit 단계에서 처리된다.
             tx.commit();
 
